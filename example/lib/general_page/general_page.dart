@@ -55,13 +55,17 @@ class _GeneralPageState extends State<GeneralPage> {
           setState(() {
             _count -= 1;
           });
+          debugPrint("=============================================");
           debugPrint("Finished Playing clip, $_count times remaining! ${TimeOfDay(hour: null, minute: null).minute}");
+          debugPrint("=============================================");
         }
         else if (_count == 0){
           setState(() {
             _loop = false;
           });
+          debugPrint("=============================================");
           debugPrint("Finished Playing clip, $_count times remaining! ${TimeOfDay(hour: null, minute: null).minute}");
+          debugPrint("=============================================");
         }
       }
     });
