@@ -37,6 +37,7 @@ class _GeneralPageState extends State<GeneralPage> {
         });
     _betterPlayerController = BetterPlayerController(
         BetterPlayerConfiguration(
+          looping: true,
           controlsConfiguration: BetterPlayerControlsConfiguration(
             enableProgressText: true,
             enablePlaybackSpeed: true,
@@ -45,7 +46,11 @@ class _GeneralPageState extends State<GeneralPage> {
         ),
         betterPlayerDataSource: dataSource);
     _betterPlayerController.addEventsListener((event) {
-      print("Better player event: ${event.betterPlayerEventType}");
+      //print("Better player event: ${event.betterPlayerEventType}");
+
+      if(event.betterPlayerEventType == BetterPlayerEventType.FINISHED){
+        debugPrint("Finished Playing clip!");
+      }
     });
     return _betterPlayerController;
   }
