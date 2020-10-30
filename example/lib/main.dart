@@ -1,5 +1,6 @@
 import 'package:better_player/better_player.dart';
 import 'package:better_player_example/playlist_page/playlist_page.dart';
+import 'package:better_player_example/swiper.dart';
 import 'package:better_player_example/video_list/video_list_page.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MainPage(),
+      home: VideoSwiper(),
     );
   }
 }
