@@ -91,6 +91,8 @@ class _GeneralPageState extends State<GeneralPage> {
     await _saveAssetSubtitleToFile();
     final directory = await getApplicationDocumentsDirectory();
 
+    int _count = 3;
+
     var dataSource = BetterPlayerDataSource(
       BetterPlayerDataSourceType.FILE,
       "${directory.path}/zawarudo.mp4",
@@ -100,9 +102,7 @@ class _GeneralPageState extends State<GeneralPage> {
       ),
     );
     _betterPlayerController = BetterPlayerController(
-      BetterPlayerConfiguration(
-        looping: true
-      ),
+      BetterPlayerConfiguration(looping: true),
       betterPlayerDataSource: dataSource,
     );
 
@@ -112,6 +112,14 @@ class _GeneralPageState extends State<GeneralPage> {
         debugPrint(
             "Finished Playing clip! ${TimeOfDay(hour: null, minute: null).minute}");
         debugPrint("!=============================================!");
+        // if (_count > 0) {
+        //   setState(() {
+        //     _count -= 1;
+        //   });
+        //   debugPrint("!=============================================!");
+        //   debugPrint("Step No: $_count");
+        //   debugPrint("!=============================================!");
+        // }
       }
     });
 

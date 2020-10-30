@@ -39,33 +39,35 @@ class _OtherPageState extends State<OtherPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Other page"),
       ),
-      body: AspectRatio(
-        aspectRatio: 16 / 9,
-        child: BetterPlayer.network(
-          "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-          betterPlayerConfiguration: BetterPlayerConfiguration(
-            aspectRatio: 16 / 9,
-            fullScreenAspectRatio: 9 / 16,
-            allowedScreenSleep: false,
-            deviceOrientationsOnFullScreen: [
-              DeviceOrientation.portraitUp,
-              DeviceOrientation.portraitDown
-            ],
-            controlsConfiguration: BetterPlayerControlsConfiguration(
-              overflowMenuCustomItems: [
-                BetterPlayerOverflowMenuItem(
-                  Icons.account_circle_rounded,
-                  "Custom element",
-                  () {
-                    print("Click!");
-                  },
-                )
-              ],
-            ),
-          ),
-        ),
+      body: Padding(
+        padding: EdgeInsets.all(10),
+        child:
+          ClipRRect(
+            borderRadius: BorderRadius.circular(25),
+            child: BetterPlayer.network(
+                "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+                betterPlayerConfiguration: BetterPlayerConfiguration(
+                  aspectRatio: 9 / 16,
+                  fullScreenAspectRatio: 9 / 16,
+                  allowedScreenSleep: false,
+                  deviceOrientationsOnFullScreen: [
+                    DeviceOrientation.portraitUp,
+                    DeviceOrientation.portraitDown
+                  ],
+                  controlsConfiguration: BetterPlayerControlsConfiguration(
+                    overflowMenuCustomItems: [
+                      BetterPlayerOverflowMenuItem(
+                        Icons.account_circle_rounded,
+                        "Custom element",
+                        () {
+                          print("Click!");
+                        },
+                      )
+                    ],
+                  ),
+                ),
+              )),
       ),
     );
   }
