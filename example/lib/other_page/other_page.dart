@@ -37,39 +37,38 @@ class _OtherPageState extends State<OtherPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-      ),
+    return SafeArea(
+        child: Scaffold(
+      appBar: AppBar(),
       body: Padding(
         padding: EdgeInsets.all(10),
-        child:
-          ClipRRect(
+        child: ClipRRect(
             borderRadius: BorderRadius.circular(25),
             child: BetterPlayer.network(
-                "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-                betterPlayerConfiguration: BetterPlayerConfiguration(
-                  aspectRatio: 9 / 16,
-                  fullScreenAspectRatio: 9 / 16,
-                  allowedScreenSleep: false,
-                  deviceOrientationsOnFullScreen: [
-                    DeviceOrientation.portraitUp,
-                    DeviceOrientation.portraitDown
+              "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+              betterPlayerConfiguration: BetterPlayerConfiguration(
+                aspectRatio: 9 / 16,
+                fullScreenAspectRatio: 9 / 16,
+                allowedScreenSleep: false,
+                deviceOrientationsOnFullScreen: [
+                  DeviceOrientation.portraitUp,
+                  DeviceOrientation.portraitDown
+                ],
+                controlsConfiguration: BetterPlayerControlsConfiguration(
+                  overflowMenuCustomItems: [
+                    BetterPlayerOverflowMenuItem(
+                      Icons.account_circle_rounded,
+                      "Custom element",
+                      () {
+                        print("Click!");
+                      },
+                    )
                   ],
-                  controlsConfiguration: BetterPlayerControlsConfiguration(
-                    overflowMenuCustomItems: [
-                      BetterPlayerOverflowMenuItem(
-                        Icons.account_circle_rounded,
-                        "Custom element",
-                        () {
-                          print("Click!");
-                        },
-                      )
-                    ],
-                  ),
                 ),
-              )),
+              ),
+            )),
       ),
-    );
+    ));
   }
 
   @override
