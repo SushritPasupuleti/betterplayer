@@ -22,7 +22,7 @@ class _GeneralPageState extends State<GeneralPage> {
       StreamController.broadcast();
   bool _fileVideoShown = false;
   int _count = 3;
-  bool _loop = true;
+  //bool _loop = true;
 
   Future<BetterPlayerController> _setupDefaultVideoData() async {
     var dataSource = BetterPlayerDataSource(BetterPlayerDataSourceType.NETWORK,
@@ -39,34 +39,48 @@ class _GeneralPageState extends State<GeneralPage> {
         });
     _betterPlayerController = BetterPlayerController(
         BetterPlayerConfiguration(
-          looping: _loop,
+          looping: true,
+          //looping: _count == 0 ? false : true,
           controlsConfiguration: BetterPlayerControlsConfiguration(
-            enableProgressText: true,
-            enablePlaybackSpeed: true,
-            enableSubtitles: true,
-          ),
+              //enableProgressText: true,
+              //enablePlaybackSpeed: true,
+              //enableSubtitles: true,
+              ),
         ),
         betterPlayerDataSource: dataSource);
     _betterPlayerController.addEventsListener((event) {
       //print("Better player event: ${event.betterPlayerEventType}");
 
       if (event.betterPlayerEventType == BetterPlayerEventType.FINISHED) {
+        debugPrint(
+            "Finished Playing clip! ${TimeOfDay(hour: null, minute: null).minute} $_count");
         if (_count > 0) {
           setState(() {
-            _count -= 1;
+            _count = _count - 1;
           });
           debugPrint("=============================================");
-          debugPrint("Finished Playing clip, $_count times remaining! ${TimeOfDay(hour: null, minute: null).minute}");
+          debugPrint(
+              "Finished Playing clip, $_count times remaining! ${TimeOfDay(hour: null, minute: null).minute}");
           debugPrint("=============================================");
+          // if (_count == 0) {
+          //   // setState(() {
+          //   //   _loop = false;
+          //   // });
+          //   debugPrint("!=============================================!");
+          //   debugPrint(
+          //       "Finished Playing clip, $_count times! ${TimeOfDay(hour: null, minute: null).minute}");
+          //   debugPrint("!=============================================!");
+          //   _betterPlayerController.setLooping(false);
+          // }
         }
-        else if (_count == 0){
-          setState(() {
-            _loop = false;
-          });
-          debugPrint("=============================================");
-          debugPrint("Finished Playing clip, $_count times remaining! ${TimeOfDay(hour: null, minute: null).minute}");
-          debugPrint("=============================================");
-        }
+        // if (_count == 0){
+        //   setState(() {
+        //     _loop = false;
+        //   });
+        //   debugPrint("=============================================");
+        //   debugPrint("Finished Playing clip, $_count times remaining! ${TimeOfDay(hour: null, minute: null).minute}");
+        //   debugPrint("=============================================");
+        // }
       }
     });
     return _betterPlayerController;
@@ -79,16 +93,27 @@ class _GeneralPageState extends State<GeneralPage> {
 
     var dataSource = BetterPlayerDataSource(
       BetterPlayerDataSourceType.FILE,
-      "${directory.path}/testvideo.mp4",
+      "${directory.path}/zawarudo.mp4",
       subtitles: BetterPlayerSubtitlesSource.single(
         type: BetterPlayerSubtitlesSourceType.FILE,
         url: "${directory.path}/example_subtitles.srt",
       ),
     );
     _betterPlayerController = BetterPlayerController(
-      BetterPlayerConfiguration(),
+      BetterPlayerConfiguration(
+        looping: true
+      ),
       betterPlayerDataSource: dataSource,
     );
+
+    _betterPlayerController.addEventsListener((event) {
+      if (event.betterPlayerEventType == BetterPlayerEventType.FINISHED) {
+        debugPrint("!=============================================!");
+        debugPrint(
+            "Finished Playing clip! ${TimeOfDay(hour: null, minute: null).minute}");
+        debugPrint("!=============================================!");
+      }
+    });
 
     return _betterPlayerController;
   }
@@ -102,9 +127,9 @@ class _GeneralPageState extends State<GeneralPage> {
   }
 
   Future _saveAssetVideoToFile() async {
-    var content = await rootBundle.load("assets/testvideo.mp4");
+    var content = await rootBundle.load("assets/zawarudo.mp4");
     final directory = await getApplicationDocumentsDirectory();
-    var file = File("${directory.path}/testvideo.mp4");
+    var file = File("${directory.path}/zawarudo.mp4");
     file.writeAsBytesSync(content.buffer.asUint8List());
   }
 
