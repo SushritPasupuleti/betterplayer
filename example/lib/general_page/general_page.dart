@@ -21,6 +21,8 @@ class _GeneralPageState extends State<GeneralPage> {
   StreamController<bool> _fileVideoStreamController =
       StreamController.broadcast();
   bool _fileVideoShown = false;
+  int _count = 3;
+  bool _loop = true;
 
   Future<BetterPlayerController> _setupDefaultVideoData() async {
     var dataSource = BetterPlayerDataSource(BetterPlayerDataSourceType.NETWORK,
@@ -37,7 +39,7 @@ class _GeneralPageState extends State<GeneralPage> {
         });
     _betterPlayerController = BetterPlayerController(
         BetterPlayerConfiguration(
-          looping: true,
+          looping: _loop,
           controlsConfiguration: BetterPlayerControlsConfiguration(
             enableProgressText: true,
             enablePlaybackSpeed: true,
@@ -48,8 +50,19 @@ class _GeneralPageState extends State<GeneralPage> {
     _betterPlayerController.addEventsListener((event) {
       //print("Better player event: ${event.betterPlayerEventType}");
 
-      if(event.betterPlayerEventType == BetterPlayerEventType.FINISHED){
-        debugPrint("Finished Playing clip!");
+      if (event.betterPlayerEventType == BetterPlayerEventType.FINISHED) {
+        if (_count > 0) {
+          setState(() {
+            _count -= 1;
+          });
+          debugPrint("Finished Playing clip, $_count times remaining! ${TimeOfDay(hour: null, minute: null).minute}");
+        }
+        else if (_count == 0){
+          setState(() {
+            _loop = false;
+          });
+          debugPrint("Finished Playing clip, $_count times remaining! ${TimeOfDay(hour: null, minute: null).minute}");
+        }
       }
     });
     return _betterPlayerController;
