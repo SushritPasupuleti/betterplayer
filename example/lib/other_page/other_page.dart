@@ -39,7 +39,7 @@ class _OtherPageState extends State<OtherPage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(bottomOpacity: 0,),
       body: Padding(
         padding: EdgeInsets.all(10),
         child: ClipRRect(
